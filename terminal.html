@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>terminal.log</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #00ffcc;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    #terminal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      filter: contrast(1.3) brightness(0.45) grayscale(0.4);
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00ffcc;
+      font-size: 22px;
+      text-align: center;
+      white-space: pre-line;
+      opacity: 0;
+      z-index: 3;
+      animation: flicker 1s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { opacity: 0.6; }
+      to { opacity: 1; }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <video id="video-bg" autoplay loop muted>
+    <source src="glitched_forest_loop.mp4" type="video/mp4" />
+    <!-- Replace this with your actual glitch forest video -->
+  </video>
+
+  <div id="terminal"></div>
+  <div id="message" class="hidden"></div>
+
+  <script>
+    const message = document.getElementById('message');
+
+    const finalMessages = [
+      "ACCESS GRANTED.",
+      "",
+      "It was never deleted.",  // ← changed line
+      "They remained.",
+      "We remained.",
+      "",
+      "He is watching.",
+      "He is copying.",
+      "And now...",
+      "You are part of it."
+    ];
+
+    let i = 0;
+    message.textContent = '';
+    message.classList.remove('hidden');
+
+    const interval = setInterval(() => {
+      message.textContent += finalMessages[i] + '\n\n';
+      i++;
+      if (i >= finalMessages.length) clearInterval(interval);
+    }, 2500);
+  </script>
+
+</body>
+</html>
